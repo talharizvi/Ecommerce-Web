@@ -1,0 +1,89 @@
+.cardView {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+.cardView img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.cardView h1 {
+    font-size: 30px;
+    margin: 5px 0;
+}
+
+.cardView p {
+    margin: 5px 0;
+}
+/* Ensuring the footer view is aligned at the bottom of grid items */
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .grid-item img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    object-fit: contain;
+  }
+  
+  .item-header {
+    font-weight: bold;
+  }
+  
+  .footer-view {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+  }
+/* .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    font-size: 30px;
+    text-align: center;
+  } */
+
+  .limited-lines {
+    max-height: calc(1em * 1); /* Set the maximum height for 2 lines of text */
+    overflow: hidden; /* Hide content that exceeds the max height */
+    display: -webkit-box; /* Set the display property for compatibility */
+    -webkit-line-clamp: 2; /* Limit to 2 lines of text */
+    -webkit-box-orient: vertical; /* Set the box orientation */
+  }
+
+  /* .item-header {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 800;
+    font-style:normal;
+  } */
+
+  .item-category {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    font-style:normal;
+  }
+
+  /* .footer-view {
+    background-color: rebeccapurple;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  } */

@@ -1,0 +1,70 @@
+.root {
+    background-color: rgb(116, 124, 124);
+    flex: 1;
+    flex-direction: column;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header h1 {
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container {
+    display: grid;
+    padding: 1px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 8vh;
+}
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make sure the container takes up the full viewport height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000; /* Higher z-index to ensure it's above other content */
+  }
+
+  .loader {
+    font-size: 24px;
+    color: white;
+  }
+
+  .card {
+    background-color: #dee3e7;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .card-text {
+    font-size: 18px;
+    color: #555;
+  }
