@@ -1,7 +1,10 @@
 .cart-item-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  width: 70%;
+  height:100;
+  /* align-items: flex-start; */
+  background-color: aquamarine;
 }
 
 .cart-item {
@@ -10,13 +13,21 @@
   margin: 10px 0;
 }
 
-.cart-item img {
-  margin-right: 10px;
+.cart-item-border {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  border-bottom: 1px solid gray;
 }
+
+/* .cart-item img {
+  margin-right: 10px;
+} */
 
 .item-details {
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 .item-details h1 {
@@ -25,4 +36,117 @@
 
 .item-details p {
   margin: 0;
+}
+
+.no-items-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.cart-left-view {
+  flex: 70%;
+  height: auto;
+  border: 1px solid gray ;
+  margin-right: 10px;
+  margin-top: 9vh;
+}
+
+.cart-right-view {
+  flex: 30%;
+  height: 300px;
+  border: 1px solid gray ;
+  margin-top: 9vh;
+}
+
+.root-cart {
+  display: flex;
+  flex-direction: row;
+  width: 100% - 20px;
+  height: auto;
+  margin-top: 70px;
+  margin: 0 10px;
+}
+
+.icon-button {
+  background-color: lightgray;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+}
+
+.icon-button:hover {
+  background-color: gray;
+}
+
+.quantity-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.price-details {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: 700;
+}
+
+.remove-btn {
+  margin-right: 15px;
+        background-color: #2196F3;
+        color: #ffffff;
+        border: none;
+        border-width: 0;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 30px;
+}
+
+.place-order-btn {
+  margin-right: 15px;
+        background-color: #2196F3;
+        color: #ffffff;;
+        border: none;
+        border-width: 0;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 30px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+}
+
+.item-details .title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.item-details .category {
+  font-size: 14px;
+  color: #777;
+}
+
+.item-details .price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e1b1b;
 }

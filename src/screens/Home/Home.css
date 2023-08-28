@@ -1,9 +1,10 @@
 .root {
-    background-color: rgb(116, 124, 124);
-    flex: 1;
+    /* background-color: rgb(116, 124, 124); */
     flex-direction: column;
     padding-left: 4px;
     padding-right: 4px;
+    padding-bottom: 2px;
+    padding-top: 10px;
 }
 
 body {
@@ -26,7 +27,7 @@ body {
 
 .grid-item {
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
     font-size: 30px;
     text-align: center;
   }
@@ -67,4 +68,12 @@ body {
   .card-text {
     font-size: 18px;
     color: #555;
+  }
+
+  .item-price {
+    font-weight: 500;
+  }
+
+  .category-price {
+    font-weight: 300;
   }

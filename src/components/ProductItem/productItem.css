@@ -42,7 +42,14 @@
   }
   
   .item-header {
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+  }
+
+  .category-prices {
+    font-weight: 400;
+    font-size: 20px;
   }
   
   .footer-view {
@@ -87,3 +94,24 @@
     align-items: center;
     display: flex;
   } */
+
+  .add-cart-btn {
+    margin-right: 15px;
+    background-color: #2196F3;
+    color: white;       
+    border: "none";       
+    border-width: 0;        
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  .add-cart-btn:hover {
+    margin-right: 15px;
+    background-color: #448eca;
+    color: white;       
+    border: "none";       
+    border-width: 0;        
+    padding: 10px 20px;
+    cursor: pointer;
+    transform: scale(1.05);
+  }

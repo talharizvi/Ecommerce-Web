@@ -22,17 +22,17 @@ const ProductItem = ({item})=>{
     const handleHeartClick = (event) => {
         event.stopPropagation(); // Stop the event propagation
         dispatch(toggleWishlist(item))
-        alert('Added to wishlist!');
       };
     return(
         <div className='grid-item' onClick={handleCardClick}>
             <img src={image} alt="Product Image" width='200' height='200'/>
             <div className="item-header">{title}</div>
             <p className='item-category'>Category: {category}</p>
-            <p className='item-header'>Price: $ {price}</p>
+            {/* <p className="category-prices">Price: <span className='category-prices'>$ {price}</span></p> */}
+            <p className="category-prices">Price: ${price}</p>
             <div className='footer-view'>
-                <button style={{marginRight: 15}} onClick={handleAddCart}>Add to cart</button>
-                {!isWishlist ? <FaHeart style={{ color: 'white' }} onClick={handleHeartClick}/> : <FaHeart style={{ color: 'red' }} onClick={handleHeartClick}/>}
+                <button className="add-cart-btn" onClick={handleAddCart}>Add to cart</button>
+                {!isWishlist ? <FaHeart style={{ color: 'gray' }} onClick={handleHeartClick}/> : <FaHeart style={{ color: 'red' }} onClick={handleHeartClick}/>}
                 
             </div>
         </div>

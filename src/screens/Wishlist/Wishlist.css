@@ -2,4 +2,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
+    height: 100vh;
+}
+
+.grid-container {
+    display: grid;
+    padding: 1px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 8vh;
+}
+
+.root {
+    flex-direction: column;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 2px;
 }

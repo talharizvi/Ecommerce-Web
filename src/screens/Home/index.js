@@ -7,9 +7,10 @@ import { addItemToCart, selectCartItems } from '../../redux/slices/cartSlice';
 import { selectWishList } from '../../redux/slices/wishlistSlice';
 import Header from '../../components/Header/Header';
 import CarouselView from '../../components/Carousel';
+import productsDataList from '../../constant';
 
 export default function HomeScreen(){
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [productsData, setProductsData] = useState([])
     const cartItems = useSelector(selectCartItems)
     const wishlistItems = useSelector(selectWishList);
@@ -30,7 +31,7 @@ export default function HomeScreen(){
         fetch('https://fakestoreapi.com/products')
             .then(res=>res.json())
             .then(json=>{
-                //console.log(json)
+                console.log('json', json)
                 setProductsData(json)   
                 setLoading(false);
             })
@@ -60,6 +61,21 @@ export default function HomeScreen(){
     //   )
     // }
 
+    const formatDataList = (productsDataList, wishlistItems) => {
+      const formattedProductList = productsDataList.map(item => {
+        const isInWishlist = wishlistItems.some(wishlistItem => wishlistItem.id === item.id);
+        return {
+          ...item,
+          isWishlist: isInWishlist
+        };
+      });
+    
+      return formattedProductList;
+    };
+
+    const formattedList = formatDataList(productsDataList, wishlistItems);
+console.log(formattedList);
+
     return (
         <div className='root'>
       <Header count={cartItems.length} />
@@ -70,11 +86,11 @@ export default function HomeScreen(){
           </div>
         ) : (
         <div className='grid-container'>
-          {productsData.map(item => <ProductItem item={item} />)}
+          {formattedList.map(item => <ProductItem item={item} />)}
           </div>
         )}
         {/* {renderBestSellerCarousel()} */}
-        <CarouselView title='Best sellers' data={productsData} handleCardClick={handleBestSellerCardClick}/>
+        <CarouselView title='Best sellers' data={productsDataList} handleCardClick={handleBestSellerCardClick}/>
         {wishlistItems.length > 0 ? (
   <CarouselView title='Wishlisted Items' data={wishlistItems} handleCardClick={handleBestSellerCardClick}/>
 ) : (

@@ -42,7 +42,7 @@ export default function WishListScreen(){
     //     );
     //   };
     return(
-        <div className="cardView">
+        <div className="root">
             <Header count={cartItems.length}/>
             {/* {renderWishListItems()} */}
             {wishListItems.length>0 ? 
