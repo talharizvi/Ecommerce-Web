@@ -1,10 +1,12 @@
 import React from 'react';
-import { FaShoppingCart, FaHeart } from 'react-icons/fa'; // Import the shopping cart icon
+import { FaShoppingCart, FaHeart, FaSignOutAlt } from 'react-icons/fa'; // Import the shopping cart icon
 import './Header.css';
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 function Header({count}) {
 
+    const {user, logout} = useAuth();
     const nav = useNavigate();
 
     const handleNavigate = ()=>{
@@ -13,7 +15,6 @@ function Header({count}) {
 
   const handleCartIconClick = () => {
     // Add your click event logic here
-    console.log('Shopping cart icon clicked!');
     handleNavigate()
   };
 
@@ -22,17 +23,28 @@ function Header({count}) {
     nav('/wishlist')
   };
 
+  const handleLogoutClick = () => {
+    // Add your logout logic here
+    logout()
+    // Redirect or perform your logout action
+    nav('/')
+  };
+
 
 
   return (
     <header className="header">
       <h1>E-Kart</h1>
       <div className='icon-view'>
-      <FaHeart style={{ color: 'white', marginRight:8 }} onClick={handleHeartClick}/>
-      <div className="cart-icon" onClick={handleCartIconClick}>
+      {user?.type !== 'admin' && <FaHeart style={{ color: 'white', marginRight:8 }} onClick={handleHeartClick}/>}
+      {user?.type !== 'admin' && <div className="cart-icon" onClick={handleCartIconClick}>
         <FaShoppingCart />
         <span className="cart-count">{count ? count : 0}</span>
-      </div>
+      </div>}
+      <FaSignOutAlt
+          style={{ color: 'white', marginLeft: 8, cursor: 'pointer' }}
+          onClick={handleLogoutClick}
+        />
       </div>
     </header>
   );

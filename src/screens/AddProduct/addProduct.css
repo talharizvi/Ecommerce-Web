@@ -1,0 +1,52 @@
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style for form labels */
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  /* Style for input fields */
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Style for file input */
+  input[type="file"] {
+    margin-top: 5px;
+  }
+  
+  /* Style for error messages */
+  p {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Padding around the button text */
+    border: none; /* Remove the button border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+  }
+  
+  /* Hover effect for the button */
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Button background color on hover */
+  }

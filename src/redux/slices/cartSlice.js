@@ -48,7 +48,6 @@ export const cartSlice = createSlice({
           },
 
         resetCartItems: (state, action) =>{
-            console.log('state', state, 'action', action)
             state.cartItemList = []
         }
     }

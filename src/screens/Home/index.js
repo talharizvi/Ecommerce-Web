@@ -5,6 +5,7 @@ import '../Home/Home.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemToCart, selectCartItems } from '../../redux/slices/cartSlice';
 import { selectWishList } from '../../redux/slices/wishlistSlice';
+import { selectProducts } from '../../redux/slices/productSlice';
 import Header from '../../components/Header/Header';
 import CarouselView from '../../components/Carousel';
 import productsDataList from '../../constant';
@@ -12,6 +13,7 @@ import productsDataList from '../../constant';
 export default function HomeScreen(){
     const [loading, setLoading] = useState(false);
     const [productsData, setProductsData] = useState([])
+    const productItems = useSelector(selectProducts)
     const cartItems = useSelector(selectCartItems)
     const wishlistItems = useSelector(selectWishList);
     //const dispatch = useDispatch()
@@ -73,7 +75,7 @@ export default function HomeScreen(){
       return formattedProductList;
     };
 
-    const formattedList = formatDataList(productsDataList, wishlistItems);
+    const formattedList = formatDataList(productItems, wishlistItems);
 console.log(formattedList);
 
     return (
@@ -90,7 +92,7 @@ console.log(formattedList);
           </div>
         )}
         {/* {renderBestSellerCarousel()} */}
-        <CarouselView title='Best sellers' data={productsDataList} handleCardClick={handleBestSellerCardClick}/>
+        <CarouselView title='Best sellers' data={productItems} handleCardClick={handleBestSellerCardClick}/>
         {wishlistItems.length > 0 ? (
   <CarouselView title='Wishlisted Items' data={wishlistItems} handleCardClick={handleBestSellerCardClick}/>
 ) : (
