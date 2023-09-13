@@ -31,7 +31,13 @@
   }
   
   /* Style for error messages */
-  p {
+  /* p {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+  } */
+
+  .errorText {
     color: red;
     margin-top: 5px;
     font-size: 14px;
@@ -44,9 +50,43 @@
     border: none; /* Remove the button border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Change cursor on hover */
+    margin-top: 10px;
   }
   
   /* Hover effect for the button */
   button[type="submit"]:hover {
     background-color: #0056b3; /* Button background color on hover */
   }
+
+
+
+  /* #img-preview {
+    display: none; 
+    width: 155px;   
+    border: 2px dashed #333;  
+    margin-bottom: 20px;
+  }
+  #img-preview img {  
+    width: 100%;
+    height: auto; 
+    display: block;   
+  }
+  [type="file"] {
+    height: 0;  
+    width: 0;
+    overflow: hidden;
+  }
+  [type="file"] + label {
+    font-family: sans-serif;
+    background: #f44336;
+    padding: 10px 30px;
+    border: 2px solid #f44336;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  [type="file"] + label:hover {
+    background-color: #fff;
+    color: #f44336;
+  } */

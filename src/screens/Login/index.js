@@ -1,5 +1,5 @@
 import '../Login/login.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import { getUserByEmail } from '../../services/userService';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -19,13 +19,15 @@ function LoginScreen() {
         const { email, password } = data;
         const user = getUserByEmail(email);
         console.log(data, user);
+        // Save user data in sessionStorage
+        sessionStorage.setItem('userData', JSON.stringify(user));
         //save login data in context
         login(user)
         
         if (user && user.password === password) {
             console.log(`Logged in as ${user.type}`);
             if(user.type === 'admin'){
-                navigate('/admin')
+                navigate('/admin/products')
             }else {
                 navigate('/home')
             }
@@ -36,7 +38,7 @@ function LoginScreen() {
 
     return (
         <div className="login-root">
-            <h1>Welcome Back!</h1>
+            {/* <h1>Welcome Back!</h1> */}
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Email:</label>
                 <input

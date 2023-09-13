@@ -1,79 +1,111 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import '../AddProduct/addProduct.css';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { addProduct } from '../../redux/slices/productSlice';
-import React, {useState} from 'react';
-import ImageUploader from "../../components/ImageUploader/ImageUploader";
+import { addProduct, editProduct } from '../../redux/slices/productSlice';
+import React, {useState, useRef, useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
+
 
 function AddProduct() {
-  const [selectedImageNames, setSelectedImageNames] = useState([]);
-  const [selectedImages, setSelectedImages] = useState([]);
+  const location = useLocation();
+  const dataItem = location.state;
+  console.log('data-item', dataItem)
+  //const {image, title, category, description, price, images, rating} = data;
+  const [selectedImages, setSelectedImages] = useState(dataItem?.images ?  dataItem?.images : []);
   console.log('selectedImages_names', selectedImages)
+
     const {
+      control,
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }
+        , setValue, getValues
     } = useForm();
     const dispatch = useDispatch();
 
-    const handleImageSelect = (e) => {
-      const files = e.target.files;
-  
-      if (files && files.length > 0) {
-        const selectedImageList = [];
-        for (let i = 0; i < files.length; i++) {
-          const imageURL = URL.createObjectURL(files[i]);
-          selectedImageList.push({
-            file: files[i],
-            url: imageURL,
-          });
-        }
-        setSelectedImages(selectedImageList);
-      }
-      console.log('event-image', e)
-    };
+  const handleFileInputChange = (e) => {
+    const files = e.target.files;
+    const fileUrls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const imageUrl = URL.createObjectURL(file);
+      fileUrls.push(imageUrl);
+    }
+
+    setSelectedImages([...selectedImages, ...fileUrls]);
+  };
+
+  // Function to remove an image URL from the array
+  const removeImage = (imageUrl) => {
+    const updatedImages = selectedImages.filter((image) => image !== imageUrl);
+    setSelectedImages(updatedImages);
+  };
 
     const onSubmit = (data) => {
+      console.log('data-onsubmit', data)
+      console.log('data-onsubmit-selectedImages', selectedImages)
+  //     const images = [];
+  // for (let i = 0; i < data.images.length; i++) {
+  //   const file = data.images[i];
+  //   console.log('file', file)
+  //   images.push({
+  //     name: file.name,
+  //     url: URL.createObjectURL(file),
+  //   });
+  // }
+
+      if (dataItem?.id) {
+        // Edit operation: Dispatch the editProduct action
+        const editedProduct = {
+            ...dataItem,
+             // Keep the same ID for the edited product
+             title: data.name,
+            price: parseFloat(data.price),
+            description: data.description,
+            category: data.category,
+            images: selectedImages,
+            image: selectedImages.length > 0 ? selectedImages[0]?.url || selectedImages[0] : '',
+        };
+        dispatch(editProduct(editedProduct));
+        alert('Item edited successfully');
+    } else {
       // Generate a unique ID using uuidv4()
       const productId = uuidv4();
 
   // Get the selected files and their names
-  // Get the selected files and their names
-  const images = [];
-  const imageNames = [];
-  for (let i = 0; i < data.images.length; i++) {
-    const file = data.images[i];
-    images.push({
-      name: file.name,
-      url: URL.createObjectURL(file),
-    });
-    imageNames.push(file.name);
-  }
-  setSelectedImageNames(imageNames);
-      // Create an object with the desired format
-      const productData = {
-        id: productId, // You can generate a unique ID here
-        title: data.name,
-        price: parseFloat(data.price),
-        description: data.description,
-        category: data.category,
-        image: images.length > 0 ? images[0].url : '', // Assuming you want to use the first image as the main image
-        rating: {
-          rate: 3.9, // You can set a default rating if needed
-          count: 120, // You can set a default count if needed
-        },
-        images: images, // Use all selected images
-        isWishlist: false, // You can set this as needed
-      };
-    
-      console.log('Formatted Data', productData);
-      dispatch(addProduct(productData));
-      alert('Item added successfully')
+  // const images = [];
+  // for (let i = 0; i < data.images.length; i++) {
+  //   const file = data.images[i];
+  //   images.push({
+  //     name: file.name,
+  //     url: URL.createObjectURL(file),
+  //   });
+  // }
+        // Add operation: Dispatch the addProduct action
+        const productData = {
+            id: productId,
+            title: data.name,
+            price: parseFloat(data.price),
+            description: data.description,
+            category: data.category,
+            //image: images.length > 0 ? images[0].url : '',
+            rating: {
+                rate: 3.9,
+                count: 120,
+            },
+            images: selectedImages,
+            image: selectedImages.length > 0 ? selectedImages[0]?.url || selectedImages[0] : '',
+            isWishlist: false,
+        };
+        dispatch(addProduct(productData));
+        alert('Item added successfully');
+    }
     };
 
     return (
-      console.log('selectedimage', selectedImages),
+      console.log('selectedimage', selectedImages,'errors', errors),
         <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
   <label>Name</label>
@@ -83,8 +115,9 @@ function AddProduct() {
     {...register('name', {
       required: 'Name is required',
     })}
+    defaultValue={dataItem?.title}
   />
-  {errors.name && <p>{errors.name.message}</p>}
+  {errors.name && <p className="errorText">{errors.name.message}</p>}
 
   <label>Category</label>
   <input
@@ -93,8 +126,9 @@ function AddProduct() {
     {...register('category', {
       required: 'Category is required',
     })}
+    defaultValue={dataItem?.category}
   />
-  {errors.category && <p>{errors.category.message}</p>}
+  {errors.category && <p className="errorText">{errors.category.message}</p>}
 
   <label>Description</label>
   <textarea
@@ -102,8 +136,9 @@ function AddProduct() {
     {...register('description', {
       required: 'Description is required',
     })}
+    defaultValue={dataItem?.description}
   />
-  {errors.description && <p>{errors.description.message}</p>}
+  {errors.description && <p className="errorText">{errors.description.message}</p>}
 
   <label>Quantity</label>
   <input
@@ -117,7 +152,7 @@ function AddProduct() {
       },
     })}
   />
-  {errors.quantity && <p>{errors.quantity.message}</p>}
+  {errors.quantity && <p className="errorText">{errors.quantity.message}</p>}
 
   <label>Price</label>
   <input
@@ -131,27 +166,67 @@ function AddProduct() {
         message: 'Price must be at least 0.01',
       },
     })}
+    defaultValue={dataItem?.price}
   />
-  {errors.price && <p>{errors.price.message}</p>}
+  {errors.price && <p className="errorText">{errors.price.message}</p>}
 
+      <div>
         <label>Images</label>
-        <input
-          type="file"
-          name="images"
-          accept="image/png, image/jpeg"
-          multiple
-          onChange={handleImageSelect} // Handle image selection
-          {...register("images", {
-            required: "At least one image is required",
-          })}
+        <Controller
+          name="images" // Field name
+          control={control}
+          defaultValue={[]} // Initial value, should be an empty array
+          rules={{ 
+            //required: 'At least one image is required' 
+            validate: () => selectedImages.length > 0 || 'At least one image is required' 
+          }} // Validation rule
+          render={({ field }) => (
+            <>
+              <input
+                type="file"
+                name="images"
+                accept="image/png, image/jpeg"
+                multiple
+                style={{ display: 'none' }} // Hide the file input
+                ref={(e) => (field.ref = e)} // Connect the ref of the file input to Controller
+                onChange={(e) => {
+                  field.onChange(e); // Trigger onChange event
+                  handleFileInputChange(e); // Custom logic for handling image selection
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => field.ref.click()} // Trigger file input click on button click
+              >
+                Select Images
+              </button>
+              {/* {field.value.map((image, index) => (
+                <div key={index}>
+                  <img src={URL.createObjectURL(image)} alt={`Image ${index}`} height='100' width='100'/>
+                  <button onClick={() => removeImage(field, URL.createObjectURL(image))}>Remove</button>
+                </div>
+              ))} */}
+              {selectedImages.map((imageUrl) => (
+          <div key={imageUrl} style={{ marginTop: 10, display: 'flex', alignItems: 'center' }}>
+            <img src={imageUrl} alt="Selected" width="100" height="100" />
+            <button onClick={() => removeImage(imageUrl)} style={{
+      marginLeft: 10, // Add left margin to create some spacing
+      padding: '5px 10px', // Add padding for better button appearance
+      backgroundColor: 'red', // Background color
+      color: 'white', // Text color
+      border: 'none', // Remove the default button border
+      borderRadius: 5, // Add rounded corners
+      cursor: 'pointer', // Change cursor on hover
+    }}>Remove</button>
+          </div>
+        ))}
+            </>
+          )}
         />
-        {selectedImages.map((imageUrl, index) => (
-        <img key={index} src={imageUrl} alt={`Image ${index}`} />
-      ))}
-        {/* {errors.images && <p>{errors.images.message}</p>} */}
+        {errors.images && <p className="errorText">{errors.images.message}</p>}
+      </div>
 
-
-      <button type="submit" className="add-product-button">Add Product</button>
+      <button type="submit" className="add-product-button">{dataItem ? 'Edit Product' : 'Add Product'}</button>
   </form>
         </div>
     )

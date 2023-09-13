@@ -10,6 +10,7 @@ import {useAuth} from '../../context/AuthContext';
 const ProductItem = ({item})=>{
     const {image, title, category, description, price, isWishlist} = item;
     const { user, userType } = useAuth();
+    console.log('user', user, userType)
     //console.log('title', title, item)
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const ProductItem = ({item})=>{
         event.stopPropagation();
         //dispatch
         //setEditProductData(item);
+        nav('/admin/add-product', { state: item });
     };
 
     return(
@@ -45,9 +47,9 @@ const ProductItem = ({item})=>{
             <p className='item-category'>Category: {category}</p>
             <p className="category-prices">Price: ${price}</p>
             <div className='footer-view'>
-                {user.type !== 'admin' ? <button className="add-cart-btn" onClick={handleAddCart}>Add to cart</button> : <button className="add-cart-btn" onClick={handleEdit}>Edit</button>}
-                {user.type !== 'admin' && (!isWishlist ? <FaHeart style={{ color: 'gray' }} onClick={handleHeartClick}/> : <FaHeart style={{ color: 'red' }} onClick={handleHeartClick}/>)}
-                {user.type ==='admin' && <FaTrash style={{ color: 'gray' }} onClick={handleDeleteClick}/>}
+                {user?.type !== 'admin' ? <button className="add-cart-btn" onClick={handleAddCart}>Add to cart</button> : <button className="add-cart-btn" onClick={handleEdit}>Edit</button>}
+                {user?.type !== 'admin' && (!isWishlist ? <FaHeart style={{ color: 'gray' }} onClick={handleHeartClick}/> : <FaHeart style={{ color: 'red' }} onClick={handleHeartClick}/>)}
+                {user?.type ==='admin' && <FaTrash style={{ color: 'gray' }} onClick={handleDeleteClick}/>}
             </div>
         </div>
     )

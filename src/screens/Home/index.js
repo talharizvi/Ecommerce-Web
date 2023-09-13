@@ -12,12 +12,9 @@ import productsDataList from '../../constant';
 
 export default function HomeScreen(){
     const [loading, setLoading] = useState(false);
-    const [productsData, setProductsData] = useState([])
     const productItems = useSelector(selectProducts)
     const cartItems = useSelector(selectCartItems)
     const wishlistItems = useSelector(selectWishList);
-    //const dispatch = useDispatch()
-    //const [cartItems, setCartItems] = useState('')
     console.log('cartItemss',cartItems)
     
     const nav = useNavigate();
@@ -27,21 +24,6 @@ export default function HomeScreen(){
       console.log('itemsdsd',item)
       nav('/detail',{state:item})
     }
-
-    useEffect(()=>{
-        //fetch products api
-        fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>{
-                console.log('json', json)
-                setProductsData(json)   
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                setLoading(false);
-              }); 
-    },[])
 
     //console.log('inisde home', productsData)
 

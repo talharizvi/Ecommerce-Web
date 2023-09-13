@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         setUserType(null);
+        //clear session storage to avoid stale user data in local storage
+        sessionStorage.clear();
     };
 
     const value = {

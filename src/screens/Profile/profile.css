@@ -1,0 +1,113 @@
+/* Styles for the entire profile form container */
+.profile {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  height: auto;
+  }
+  
+  /* Styles for form headings */
+  .profile h2 {
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for form groups */
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  /* Styles for form labels */
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for text input fields */
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Styles for select fields */
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Styles for radio button labels */
+  .form-group div label {
+    margin-right: 15px;
+  }
+  
+  /* Styles for error messages */
+  .form-group p {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+  }
+  
+  /* Styles for the GST input field */
+  .gst-input {
+    display: none;
+  }
+  
+  /* Styles for the GST input field when "Yes" is selected */
+  .form-group input[type="radio"][value="yes"]:checked ~ .gst-input {
+    display: block;
+  }
+  
+  /* Styles for the GST input field label */
+  .gst-input label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  /* Styles for the success message */
+  .success-message {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+  
+  .visible {
+    display: block;
+  }
+
+  .errorText {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  
+  input[type="email"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.gender-input {
+  margin-bottom: 20px;
+}
+
+.gst-input {
+  margin-top: 10px;
+}

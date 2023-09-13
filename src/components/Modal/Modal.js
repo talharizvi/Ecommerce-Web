@@ -5,7 +5,7 @@ export default function Modal({ onClose }) {
     const nav = useNavigate();
     const handleClose = () => {
         onClose();
-        nav('/'); // Navigate to the home page
+        nav('/home'); // Navigate to the home page
       };
     return (
       <div className="modal-overlay">

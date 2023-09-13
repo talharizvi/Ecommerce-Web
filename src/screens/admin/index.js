@@ -1,46 +1,35 @@
 import React from 'react';
-import Products from '../Products/index';
-import AddProduct from '../AddProduct/index';
-import Profile from '../Profile/index';
-import Sidebar from '../../components/Sidebar';
+import { Outlet, useNavigate } from 'react-router-dom';
 import '../admin/admin.css';
 import Header from '../../components/Header/Header';
+import Sidebar from '../../components/Sidebar';
 
-const Content = ({ selectedOption }) => {
-    return (
-      <div className="content">
-      {selectedOption === 'Products' && <Products />}
-      {selectedOption === 'Add Product' && <AddProduct />}
-      {selectedOption === 'Profile' && <Profile />}
-      </div>
-    );
-  };
-
-function AdminScreen() {
-    const [selectedOption, setSelectedOption] = React.useState('Products');
-  const options = ['Products', 'Add Product', 'Profile'];
-
+const AdminScreen = () => {
+  const navigate = useNavigate();
+  const options = [
+    { label: 'Products', path: 'products' },
+    { label: 'Add Product', path: 'add-product' },
+    { label: 'Profile', path: 'profile' },
+  ];
+  const defaultOption = options[0];
+  const [selectedOption, setSelectedOption] = React.useState(defaultOption);
+  
   const handleOptionClick = (option) => {
     setSelectedOption(option);
+    navigate(`/admin/${option}`);
   };
-    return (
-        <div className="app">
-            <Header count={0}/>
-            <Sidebar
-                options={options}
-                selectedOption={selectedOption}
-                onOptionClick={handleOptionClick}
-            />
-            <Content selectedOption={selectedOption} />
-            {/* <div className="admin-content">
-                <Routes>
-                    <Route path="products" element={<Products />} />
-                    <Route path="add-product" element={<AddProduct />} />
-                    <Route path="profile" element={<Profile />} />
-                </Routes>
-            </div> */}
+  
+  return (
+    <div className="app">
+      <Header count={0} />
+      <div className="admin-content">
+        <Sidebar options={options} selectedOption={selectedOption} onOptionClick={handleOptionClick}/>
+        <div className="content">
+          <Outlet /> {/* This is where the nested route content will be displayed */}
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default AdminScreen;

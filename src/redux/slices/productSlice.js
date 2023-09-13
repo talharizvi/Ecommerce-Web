@@ -10,7 +10,7 @@ export const productSlice = createSlice({
     initialState,
     reducers:{
         addProduct:(state,action)=>{
-            state.productItems.push({...action.payload})
+            state.productItems.unshift({...action.payload})
         },
         removeProduct: (state, action) =>{
             console.log('payload', action)
@@ -20,11 +20,23 @@ export const productSlice = createSlice({
                 state.productItems.splice(existingProductIndex, 1);
             }
         },
+        editProduct: (state, action) => {
+            const editedProduct = action.payload;
+            console.log('editedProduct', editedProduct)
+            const index = state.productItems.findIndex(
+                (product) => product.id === editedProduct.id
+            );
+
+            if (index !== -1) {
+                // Replace the existing product with the edited one
+                state.productItems[index] = editedProduct;
+            }
+        },
     }
 })
 
 
 export const selectProducts = state => state.productItems.productItems
 
-export const {addProduct, removeProduct} = productSlice.actions 
+export const {addProduct, removeProduct, editProduct} = productSlice.actions 
 export default productSlice.reducer

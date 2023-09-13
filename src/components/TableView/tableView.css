@@ -1,0 +1,15 @@
+.item-description {
+    text-overflow: ellipsis;
+    background-color: aqua;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 20px;
+}
+
+.item-description-parent {
+    overflow: hidden;
+}
+
+.item-image {
+    margin-right: 2px;
+}
